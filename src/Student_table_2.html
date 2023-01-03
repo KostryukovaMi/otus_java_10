@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+
+        .content-block {
+            margin-left: 20px;
+        }
+
+        #students-tab {
+            border: 1px solid steelblue;
+            width: 400px;
+        }
+
+        #studentsTab tr td {
+            border: 1px solid steelblue;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+        #statForm{
+            border: 10px solid blue;
+            border-collapse: collapse;
+            width: 400px;
+            margin-left: 10px;
+        }
+
+    </style>
+  <script>
+    "use strict"
+    var N = 127;
+    function addNewStudent(){
+            const studentsTab = document.getElementById("studentsTab");
+            const studentName = document.getElementById("fioTextBox").value;
+            const dateBirth = document.getElementById("datePicker").value;
+            const gender = document.getElementById("gender").value;
+            var middleAge = document.getElementById("str");
+
+            const newRow1 = studentsTab.insertRow(studentsTab.rows.length-2);
+
+            const newCell11 = newRow1.insertCell(-1);
+            newCell11.appendChild(document.createTextNode(studentName));
+            const newCell12 = newRow1.insertCell(-1);
+            newCell12.appendChild(document.createTextNode(gender));
+            const newCell13 = newRow1.insertCell(-1);
+            newCell13.appendChild(document.createTextNode(dateBirth));
+            const newCell14 = newRow1.insertCell(-1);
+            newCell14.appendChild(document.createTextNode(ageCalculation(dateBirth)));
+
+            N += ageCalculation(dateBirth);
+            var sr = N / (studentsTab.rows.length-3);
+            middleAge.replaceChildren();
+            middleAge.appendChild(document.createTextNode("Средний возраст: " + sr));
+
+    }
+    function ageCalculation(dateBirth)
+    {
+           if (Math.floor((new Date() - new Date(dateBirth)) / 1000 / 60 / 60 / 24 / 365) < 0) return 0;
+           return Math.floor((new Date() - new Date(dateBirth)) / 1000 / 60 / 60 / 24 / 365);
+    }
+    </script>
+</head>
+<body>
+<h2>
+  Форма добавления информации о студенте
+</h2>
+<div id = "stat-form" class = "statForm">
+  <p class = "content-block" id = "firstParagraph">
+      <label for = "fioTextBox">Имя студента</label>
+      <input id = "fioTextBox" name = "studentName" type = "text">
+  </p>
+
+
+  <p class = "content-block" id = "secondParagraph">
+    <label for = "datePicker">Дата рождения</label>
+    <input id = "datePicker" name = "dateBirth" type = "date" value = "1990-01-01">
+  </p>
+
+  <p class = "content-block" id = "thirdParagraph">
+    <label>
+      Пол
+      <select id = "gender" name = "genderStudent">
+        <option value = "женщина" selected>женщина</option>
+        <option value = "мужчина">мужчина</option>
+      </select>
+    </label>
+  </p>
+  <button onclick = "addNewStudent()" class = "content-block">Добавить</button>
+  <p> </p>
+</div>
+<h2>
+  Таблица студентов
+</h2>
+
+<table id = "studentsTab" class = "students-tab">
+  <thead>
+  <tr>
+    <td><b>Имя студента</b></td>
+    <td><b>Пол</b></td>
+    <td><b>Дата рождения</b></td>
+    <td><b>Возраст</b></td>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr>
+    <td>Иван Ограномович Штейн</td>
+    <td>мужчина</td>
+    <td>12.06.1974</td>
+    <td>46</td>
+  </tr>
+  <tr>
+    <td>Гертруда Анатольевна Иванова</td>
+    <td>женщина</td>
+    <td>01.01.1987</td>
+    <td>34</td>
+  </tr>
+  <tr>
+    <td>Воланд Игоревич Муха</td>
+    <td>мужчина</td>
+    <td>27.04.1974</td>
+    <td>47</td>
+  </tr>
+  <tr>
+    <td></td>
+  </tr>
+  <tr>
+    <td id = "str"></td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+
+</html>
